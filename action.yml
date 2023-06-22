@@ -65,12 +65,11 @@ runs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
         push: false
-        outputs: type=image
     - name: Build package
       shell: bash
       run: ${{github.action_path}}/entrypoint.sh
       env:
-        INPUT_IMAGE: "sil-${{inputs.flavor}}-${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}"
+        INPUT_IMAGE: "docker.io/library/sil-${{inputs.flavor}}-${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}"
         INPUT_FLAVOR: "${{inputs.flavor}}"
         INPUT_DIST: "${{inputs.dist}}"
         INPUT_PLATFORM: "${{inputs.platform}}"
