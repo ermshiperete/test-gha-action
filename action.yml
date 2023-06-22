@@ -60,7 +60,7 @@ runs:
       uses: docker/build-push-action@2eb1c1961a95fc15694676618e422e8ba1d63825 # v4.1.1
       with:
         context: ${{github.action_path}}
-        tags: sil-${{inputs.flavor}}:${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}
+        tags: sil-${{inputs.flavor}}-${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}
         load: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
@@ -69,7 +69,7 @@ runs:
       shell: bash
       run: ${{github.action_path}}/entrypoint.sh
       env:
-        INPUT_IMAGE: "sil-${{inputs.flavor}}:${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}"
+        INPUT_IMAGE: "sil-${{inputs.flavor}}-${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}"
         INPUT_FLAVOR: "${{inputs.flavor}}"
         INPUT_DIST: "${{inputs.dist}}"
         INPUT_PLATFORM: "${{inputs.platform}}"
