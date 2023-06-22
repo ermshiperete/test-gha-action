@@ -65,6 +65,7 @@ runs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
         push: false
+        output: type=image
     - name: Build package
       shell: bash
       run: ${{github.action_path}}/entrypoint.sh
