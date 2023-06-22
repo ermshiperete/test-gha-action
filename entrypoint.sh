@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-IMAGE_NAME="$1"
-
+echo "***** in entrypoint.sh: $*"
+env
 cd "${INPUT_SOURCE_DIR}" || exit
 docker run -v "$(pwd)":/source --workdir /source --platform="linux/${INPUT_PLATFORM}" \
-    "${IMAGE_NAME}" "${INPUT_DIST}" "${INPUT_SOURCEPACKAGE}" .
+    "${INPUT_IMAGE}" "${INPUT_DIST}" "${INPUT_SOURCEPACKAGE}" .
