@@ -67,4 +67,4 @@ runs:
         push: false
     - name: Build package
       shell: bash
-      run: entrypoint.sh sil-${{inputs.flavor}}:${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}
+      run: ${{github.action_path}}/entrypoint.sh sil-${{inputs.flavor}}:${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}
