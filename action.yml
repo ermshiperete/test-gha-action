@@ -6,8 +6,12 @@ branding:
   icon: package
 
 inputs:
+  flavor:
+    description: 'The name of the distribution, i.e. Ubuntu or Debian. Defaults to `ubuntu`.'
+    required: false
+    default: 'ubuntu'
   dist:
-   description: 'The name of a Ubuntu version, either code name (e.g. jammy) or release (e.g. 22.04)'
+   description: 'The name of a Ubuntu/Debian version, either code name (e.g. jammy) or release (e.g. 22.04)'
    required: true
   platform:
     description: 'The platform to build on. One of `amd64` or `i386`. Defaults to `amd64`.'
@@ -53,11 +57,11 @@ runs:
       uses: docker/build-push-action@2eb1c1961a95fc15694676618e422e8ba1d63825 # v4.1.1
       with:
         file: "Dockerfile"
-        tags: sil-${{inputs.distribution}}:${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}
+        tags: sil-${{inputs.flavor}}:${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}
         load: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
         push: false
     - name: Build package
       shell: bash
-      run: entrypoint.sh sil-${{inputs.distribution}}:${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}
+      run: entrypoint.sh sil-${{inputs.flavor}}:${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}
