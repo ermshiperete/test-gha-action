@@ -68,17 +68,17 @@ runs:
     - name: Build package
       shell: bash
       run: ${{github.action_path}}/entrypoint.sh
-      with:
-        image: 'sil-${{inputs.flavor}}:${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}'
-        flavor: '${{inputs.flavor}}'
-        dist: '${{inputs.dist}}'
-        platform: '${{inputs.platform}}'
-        sourcepackage: '${{inputs.sourcepackage}}'
-        source_dir: '${{inputs.source_dir}}'
-        result_dir: '${{inputs.result_dir}}'
-        enable_llso: '${{inputs.enable_llso}}'
-        enable_pso: '${{inputs.enable_pso}}'
-        deb_fullname: '${{inputs.deb_fullname}}'
-        deb_email: '${{inputs.deb_email}}'
-        prerelease_tag: '${{inputs.prerelease_tag}}'
+      env:
+        INPUT_IMAGE: "sil-${{inputs.flavor}}:${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}"
+        INPUT_FLAVOR: "${{inputs.flavor}}"
+        INPUT_DIST: "${{inputs.dist}}"
+        INPUT_PLATFORM: "${{inputs.platform}}"
+        INPUT_SOURCEPACKAGE: "${{inputs.sourcepackage}}"
+        INPUT_SOURCE_DIR: "${{inputs.source_dir}}"
+        INPUT_RESULT_DIR: "${{inputs.result_dir}}"
+        INPUT_ENABLE_LLSO: "${{inputs.enable_llso}}"
+        INPUT_ENABLE_PSO: "${{inputs.enable_pso}}"
+        INPUT_DEB_FULLNAME: "${{inputs.deb_fullname}}"
+        INPUT_DEB_EMAIL: "${{inputs.deb_email}}"
+        INPUT_PRERELEASE_TAG: "${{inputs.prerelease_tag}}"
 
