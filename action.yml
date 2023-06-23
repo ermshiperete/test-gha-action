@@ -77,6 +77,12 @@ runs:
         cache-to: type=gha,mode=max
         outputs: type=image
         push: true
+        build-args:
+          DIST=${{inputs.dist}}
+          DISTRIBUTION=${{inputs.flavor}}
+          PLATFORM=${{inputs.platform}}
+          ENABLE_LLSO=${{inputs.enable_llso}}
+          ENABLE_PSO=${{inputs.enable_pso}}
 
     - name: Build package
       shell: bash
