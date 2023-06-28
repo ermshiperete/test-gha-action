@@ -84,7 +84,7 @@ runs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
         outputs: type=image
-        push: true
+        push: false
         platforms: linux/${{inputs.platform}}
         build-args: |
           DIST=${{inputs.dist}}
