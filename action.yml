@@ -48,9 +48,6 @@ inputs:
     description: 'A pre-release tag to add to the version number'
     required: false
     default: ''
-  github_token:
-    description: 'The GitHub token secret for the password. You can pass the automatically generated GITHUB_TOKEN secret.'
-    required: true
 
 runs:
   using: 'composite'
