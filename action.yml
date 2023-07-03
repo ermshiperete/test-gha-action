@@ -63,7 +63,7 @@ runs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@ecf95283f03858871ff00b787d79c419715afc34 # v2.7.0
 
-    - name: Build Docker image
+    - name: Build package
       shell: bash
       run: |
         IMAGE_ID=$(docker images --quiet "${IMAGE_NAME}")
@@ -71,18 +71,8 @@ runs:
           echo "::notice::Building docker image for ${INPUT_DIST}"
           docker buildx build --platform ${INPUT_PLATFORM} -o type=image,name=${IMAGE_NAME} --build-arg DIST="${INPUT_DIST}" --build-arg PLATFORM=${INPUT_PLATFORM} --build-arg DISTRIBUTION=${INPUT_DISTRIBUTION} --build-arg ENABLE_LLSO=${INPUT_ENABLE_LLSO} --build-arg ENABLE_PSO=${INPUT_ENABLE_PSO} --tag "${IMAGE_NAME}" .
         fi
-      working-directory: ${{github.action_path}}
-      env:
-        INPUT_DISTRIBUTION: "${{inputs.flavor}}"
-        INPUT_DIST: "${{inputs.dist}}"
-        INPUT_PLATFORM: "${{inputs.platform}}"
-        INPUT_ENABLE_LLSO: "${{inputs.enable_llso}}"
-        INPUT_ENABLE_PSO: "${{inputs.enable_pso}}"
-        IMAGE_NAME: "${{github.actor}}/sil-${{inputs.flavor}}-${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}"
-
-    - name: Build package
-      shell: bash
-      run: docker run --platform="${{inputs.platform}}" -v "/var/run/docker.sock":"/var/run/docker.sock" -v "${{inputs.source_dir}}":/source --env INPUT_DISTRIBUTION --env INPUT_DIST --env INPUT_PLATFORM --env INPUT_SOURCEPACKAGE --env INPUT_SOURCE_DIR --env INPUT_RESULT_DIR --env INPUT_ENABLE_LLSO --env INPUT_ENABLE_PSO --env INPUT_DEB_FULLNAME --env INPUT_DEB_EMAIL --env INPUT_PRERELEASE_TAG --workdir /source "${{github.actor}}/sil-${{inputs.flavor}}-${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}" "${{inputs.dist}}" "${{inputs.sourcepackage}}" .
+        docker images
+        docker run --platform="${{inputs.platform}}" -v "/var/run/docker.sock":"/var/run/docker.sock" -v "${{inputs.source_dir}}":/source --env INPUT_DISTRIBUTION --env INPUT_DIST --env INPUT_PLATFORM --env INPUT_SOURCEPACKAGE --env INPUT_SOURCE_DIR --env INPUT_RESULT_DIR --env INPUT_ENABLE_LLSO --env INPUT_ENABLE_PSO --env INPUT_DEB_FULLNAME --env INPUT_DEB_EMAIL --env INPUT_PRERELEASE_TAG --workdir /source "${IMAGE_NAME}" "${{inputs.dist}}" "${{inputs.sourcepackage}}" .
       working-directory: ${{inputs.source_dir}}
       env:
         INPUT_DISTRIBUTION: "${{inputs.flavor}}"
@@ -96,4 +86,4 @@ runs:
         INPUT_DEB_FULLNAME: "${{inputs.deb_fullname}}"
         INPUT_DEB_EMAIL: "${{inputs.deb_email}}"
         INPUT_PRERELEASE_TAG: "${{inputs.prerelease_tag}}"
-
+        IMAGE_NAME: "${{github.actor}}/sil-${{inputs.flavor}}-${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}"
