@@ -70,7 +70,7 @@ runs:
         if [ -z "$IMAGE_ID" ]; then
           pushd ${{github.action_path}}
           echo "::notice::Building docker image for ${INPUT_DIST}"
-          docker buildx build --platform ${INPUT_PLATFORM} -o type=docker --build-arg DIST="${INPUT_DIST}" --build-arg PLATFORM=${INPUT_PLATFORM} --build-arg DISTRIBUTION=${INPUT_DISTRIBUTION} --build-arg ENABLE_LLSO=${INPUT_ENABLE_LLSO} --build-arg ENABLE_PSO=${INPUT_ENABLE_PSO} --tag "${IMAGE_NAME}" .
+          docker buildx build --platform ${INPUT_PLATFORM} -o type=docker --cache-from=type=gha --cache-to=type=gha,mode-max --build-arg DIST="${INPUT_DIST}" --build-arg PLATFORM=${INPUT_PLATFORM} --build-arg DISTRIBUTION=${INPUT_DISTRIBUTION} --build-arg ENABLE_LLSO=${INPUT_ENABLE_LLSO} --build-arg ENABLE_PSO=${INPUT_ENABLE_PSO} --tag "${IMAGE_NAME}" .
           popd
         fi
         docker images
