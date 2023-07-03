@@ -72,14 +72,14 @@ runs:
       env:
         INPUT_DISTRIBUTION: "${{inputs.flavor}}"
         INPUT_DIST: "${{inputs.dist}}"
-        INPUT_PLATFORM: "linux/${{inputs.platform}}"
+        INPUT_PLATFORM: "${{inputs.platform}}"
         INPUT_ENABLE_LLSO: "${{inputs.enable_llso}}"
         INPUT_ENABLE_PSO: "${{inputs.enable_pso}}"
         IMAGE_NAME: "${{github.actor}}/sil-${{inputs.flavor}}-${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}"
 
     - name: Build package
       shell: bash
-      run: docker run -v "/var/run/docker.sock":"/var/run/docker.sock" -v "${{inputs.source_dir}}":/source --env INPUT_DISTRIBUTION --env INPUT_DIST --env INPUT_PLATFORM --env INPUT_SOURCEPACKAGE --env INPUT_SOURCE_DIR --env INPUT_RESULT_DIR --env INPUT_ENABLE_LLSO --env INPUT_ENABLE_PSO --env INPUT_DEB_FULLNAME --env INPUT_DEB_EMAIL --env INPUT_PRERELEASE_TAG --workdir /source --platform="linux/${{inputs.platform}}" "${{github.actor}}/sil-${{inputs.flavor}}-${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}" "${{inputs.dist}}" "${{inputs.sourcepackage}}" .
+      run: docker run -v "/var/run/docker.sock":"/var/run/docker.sock" -v "${{inputs.source_dir}}":/source --env INPUT_DISTRIBUTION --env INPUT_DIST --env INPUT_PLATFORM --env INPUT_SOURCEPACKAGE --env INPUT_SOURCE_DIR --env INPUT_RESULT_DIR --env INPUT_ENABLE_LLSO --env INPUT_ENABLE_PSO --env INPUT_DEB_FULLNAME --env INPUT_DEB_EMAIL --env INPUT_PRERELEASE_TAG --workdir /source --platform="${{inputs.platform}}" "${{github.actor}}/sil-${{inputs.flavor}}-${{inputs.dist}}-${{inputs.platform}}-${{inputs.enable_pso}}-${{inputs.enable_llso}}" "${{inputs.dist}}" "${{inputs.sourcepackage}}" .
       working-directory: ${{inputs.source_dir}}
       env:
         INPUT_DISTRIBUTION: "${{inputs.flavor}}"
