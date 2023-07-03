@@ -7,6 +7,9 @@ ARG ENABLE_PSO=true
 FROM --platform=${PLATFORM} ${DISTRIBUTION}:${DIST}
 
 # see https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
+ARG DIST
+ARG DISTRIBUTION
+ARG PLATFORM
 ARG ENABLE_LLSO
 ARG ENABLE_PSO
 
