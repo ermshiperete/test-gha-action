@@ -60,9 +60,6 @@ runs:
           exit 1
         fi
 
-    - name: Checkout
-      uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
-
     - name: Build Docker image
       shell: bash
       run: |
@@ -71,7 +68,7 @@ runs:
           echo "::notice::Building docker image for ${INPUT_DIST}"
           docker build --build-arg DIST="${INPUT_DIST}" --build-arg PLATFORM=${INPUT_PLATFORM} --build-arg DISTRIBUTION=${INPUT_DISTRIBUTION} --build-arg ENABLE_LLSO=${INPUT_ENABLE_LLSO} --build-arg ENABLE_PSO=${INPUT_ENABLE_PSO} -t "${IMAGE_NAME}" .
         fi
-      working-directory: ${{inputs.source_dir}}
+      working-directory: ${{github.action_path}}
       env:
         INPUT_DISTRIBUTION: "${{inputs.flavor}}"
         INPUT_DIST: "${{inputs.dist}}"
