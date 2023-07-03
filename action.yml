@@ -68,8 +68,10 @@ runs:
       run: |
         IMAGE_ID=$(docker images --quiet "${IMAGE_NAME}")
         if [ -z "$IMAGE_ID" ]; then
+          pushd ${{github.action_path}}
           echo "::notice::Building docker image for ${INPUT_DIST}"
           docker buildx build --platform ${INPUT_PLATFORM} -o type=image,name=${IMAGE_NAME} --build-arg DIST="${INPUT_DIST}" --build-arg PLATFORM=${INPUT_PLATFORM} --build-arg DISTRIBUTION=${INPUT_DISTRIBUTION} --build-arg ENABLE_LLSO=${INPUT_ENABLE_LLSO} --build-arg ENABLE_PSO=${INPUT_ENABLE_PSO} --tag "${IMAGE_NAME}" .
+          popd
         fi
         docker images
         docker run --platform="${{inputs.platform}}" -v "/var/run/docker.sock":"/var/run/docker.sock" -v "${{inputs.source_dir}}":/source --env INPUT_DISTRIBUTION --env INPUT_DIST --env INPUT_PLATFORM --env INPUT_SOURCEPACKAGE --env INPUT_SOURCE_DIR --env INPUT_RESULT_DIR --env INPUT_ENABLE_LLSO --env INPUT_ENABLE_PSO --env INPUT_DEB_FULLNAME --env INPUT_DEB_EMAIL --env INPUT_PRERELEASE_TAG --workdir /source "${IMAGE_NAME}" "${{inputs.dist}}" "${{inputs.sourcepackage}}" .
