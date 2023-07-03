@@ -4,7 +4,7 @@ ARG DISTRIBUTION=ubuntu
 ARG PLATFORM=amd64
 ARG ENABLE_LLSO=true
 ARG ENABLE_PSO=true
-FROM --platform=$BUILDPLATFORM $DISTRIBUTION:$DIST
+FROM --platform=$PLATFORM $DISTRIBUTION:$DIST
 
 # see https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG DIST
