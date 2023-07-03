@@ -69,7 +69,7 @@ runs:
         IMAGE_ID=$(docker images --quiet "${IMAGE_NAME}")
         if [ -z "$IMAGE_ID" ]; then
           echo "::notice::Building docker image for ${INPUT_DIST}"
-          docker build --build-arg DIST="${INPUT_DIST}" --build-arg PLATFORM=${INPUT_PLATFORM} --build-arg DISTRIBUTION=${{INPUT_DISTRIBUTION}} --build-arg ENABLE_LLSO=${INPUT_ENABLE_LLSO} --build-arg ENABLE_PSO=${INPUT_ENABLE_PSO} -t "${IMAGE_NAME}" .
+          docker build --build-arg DIST="${INPUT_DIST}" --build-arg PLATFORM=${INPUT_PLATFORM} --build-arg DISTRIBUTION=${INPUT_DISTRIBUTION} --build-arg ENABLE_LLSO=${INPUT_ENABLE_LLSO} --build-arg ENABLE_PSO=${INPUT_ENABLE_PSO} -t "${IMAGE_NAME}" .
         fi
       working-directory: ${{inputs.source_dir}}
       env:
