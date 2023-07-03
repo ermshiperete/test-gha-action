@@ -4,7 +4,7 @@ ARG DISTRIBUTION=ubuntu
 ARG PLATFORM=amd64
 ARG ENABLE_LLSO=true
 ARG ENABLE_PSO=true
-FROM --platform=${PLATFORM} ${DISTRIBUTION}:${DIST}
+FROM --platform=$BUILDPLATFORM $DISTRIBUTION:$DIST
 
 # see https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG DIST
@@ -17,6 +17,10 @@ ARG ENABLE_PSO
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBIAN_PRIORITY critical
 ENV DEBCONF_NOWARNINGS yes
+
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM; PLATFORM=$PLATFORM" > /log
 
 COPY test.sh /test.sh
 
